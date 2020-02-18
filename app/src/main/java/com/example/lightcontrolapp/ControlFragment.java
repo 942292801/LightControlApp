@@ -28,7 +28,7 @@ public class ControlFragment extends Fragment {
     private SeekBar sbTotal,sbColor;
 
 
-    private Boolean isGroud = false;
+    public static Boolean isGroud = false;
     //总亮度
     private double totalLight = 0;
     //色温
@@ -37,7 +37,6 @@ public class ControlFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         View view = inflater.inflate(R.layout.fragment_control,container,false);
         tvTotal = view.findViewById(R.id.tv_total);

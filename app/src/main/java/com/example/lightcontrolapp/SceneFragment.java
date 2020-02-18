@@ -59,7 +59,7 @@ public class SceneFragment extends Fragment {
                 }
                 sceneEditorStatus(true);
                 editImageView = view.findViewById(R.id.scene_markView);
-
+                ControlFragment.isGroud = true;
                 if (editImageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_null).getConstantState())){
                     isNullScene = true;
                 }else {
@@ -79,15 +79,10 @@ public class SceneFragment extends Fragment {
                 if(isEditScene){
                     return;
                 }
+                AllOffIni();
                 ImageView imageView = view.findViewById(R.id.scene_img);
-                if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_on).getConstantState())){
-                    //当image1的src为R.drawable.A时，设置image1的src为R.drawable.B
-                    imageView.setImageResource(R.drawable.scene_off);
-                }else{
-                    //否则设置image1的src为R.drawable.A
-                    imageView.setImageResource(R.drawable.scene_on);
+                imageView.setImageResource(R.drawable.scene_on);
 
-                }
 
             }
         });
@@ -153,6 +148,16 @@ public class SceneFragment extends Fragment {
         btnCancel.setVisibility(status?View.VISIBLE:View.GONE);
     }
 
+    //把mgv的灯全部关
+    private void AllOffIni(){
+        ImageView imageView = null;
+        //所有灯关
+        for (int i = 0;i<mGV.getChildCount();i++){
+            imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.scene_img);
+            imageView.setImageResource(R.drawable.scene_off);
+        }
+
+    }
 
 
 }
