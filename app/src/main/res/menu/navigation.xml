@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_control"
+        android:icon="@drawable/controla"
+        android:title="@string/control" />
+    <item
+        android:id="@+id/navigation_scene"
+        android:icon="@drawable/scenea"
+        android:title="@string/scene" />
+    <item
+        android:id="@+id/navigation_wiring"
+        android:icon="@drawable/wiringa"
+        android:title="@string/wiring" />
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/settinga"
+        android:title="@string/setting" />
+
+
+</menu>

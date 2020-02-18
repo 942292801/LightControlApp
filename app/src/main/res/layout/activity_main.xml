@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_70"
+        android:id="@+id/iptitle"
+        android:layout_marginTop="@dimen/h_10"
+        android:layout_marginLeft="@dimen/h_10"
+        android:layout_marginRight="@dimen/h_10"
+        >
+        <Spinner
+            android:id="@+id/spinner_sp"
+            android:layout_width="@dimen/w_360"
+            android:layout_height="@dimen/h_70"
+            android:drawSelectorOnTop="true"
+            android:layout_centerInParent="true"
+
+            />
+
+        <Button
+            android:id="@+id/btn_ipadd"
+            android:layout_width="@dimen/w_130"
+            android:layout_height="@dimen/h_50"
+            android:background="@drawable/btn_gray"
+            android:textSize="11sp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="添加"
+
+            />
+
+        <Button
+            android:id="@+id/btn_ipdel"
+            android:layout_width="@dimen/w_130"
+            android:layout_height="@dimen/h_50"
+            android:background="@drawable/btn_gray"
+            android:textSize="11sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="删除"
+
+            />
+    </RelativeLayout>
+
+    <!--用于切换fragment-->
+    <FrameLayout
+        android:id="@+id/fl_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bnv_main"
+        android:layout_below="@+id/iptitle"
+        android:background="@drawable/line_border"
+
+        />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_1"
+        android:layout_below="@+id/fl_main"
+        android:background="@color/colorBalck"
+        />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bnv_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemTextColor="@drawable/select_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/navigation"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="5dip"/>
+            <!--]startColor 开始颜色 enColor结束颜色-->
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/colorSmokeWhite"
+                android:centerY="0.75"
+                android:endColor="@color/colorSmokeWhite"
+                android:startColor="@color/colorSmokeWhite"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="5dip"/>
+                <gradient
+                    android:angle="0"
+                    android:endColor="@color/colorYellowEnd"
+                    android:centerColor="#70D4AB"
+                    android:startColor="@color/colorBlueStart"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

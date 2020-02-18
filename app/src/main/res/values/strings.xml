@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">灯光控制</string>
+    <string name="control">分控</string>
+    <string name="scene">场景</string>
+    <string name="wiring">配线</string>
+    <string name="setting">设置</string>
+</resources>

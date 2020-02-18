@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_grid_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+    <FrameLayout
+        android:id="@+id/starred_item_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="4dip"
+            android:layout_marginRight="4dip" >
+            <ImageView
+                android:id="@+id/scene_img"
+                android:layout_width="@dimen/w_80"
+                android:layout_height="@dimen/h_80" />
+            <TextView
+                android:id="@+id/scene_name"
+                android:layout_width="@dimen/w_80"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:textColor="@android:color/black"
+                android:gravity="center" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/scene_markView"
+            android:layout_width="@dimen/w_20"
+            android:layout_height="@dimen/h_20"
+            android:layout_marginTop="@dimen/h_10"
+            android:layout_marginRight="@dimen/h_10"
+            android:adjustViewBounds="true"
+            android:layout_gravity="right|top"
+            android:visibility="visible"
+            />
+    </FrameLayout>
+</LinearLayout>

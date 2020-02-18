@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorGray">#C4C4C4</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorDeepGray">#242424</color>
+    <color name="colorBalck">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlue">#3399ff</color>
+    <color name="colorBlueEnd">#11A0FF</color>
+    <color name="colorBlueStart">#DDF1FF</color>
+    <color name="colorSmokeWhite">#EEEEEE</color>
+    <color name="colorYellowEnd">#DD8500</color>
+    <color name="colorYellowStart">#FFDDAA</color>
+    <color name="colorYellow">#FFFF44</color>
+    <color name="colorRed">#FF0000</color>
+</resources>
