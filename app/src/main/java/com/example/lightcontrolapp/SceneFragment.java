@@ -1,9 +1,11 @@
 package com.example.lightcontrolapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +16,43 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.lightcontrolapp.dto.ArtNetInfo;
+import com.example.lightcontrolapp.dto.EventBusMessage;
 import com.example.lightcontrolapp.gridview.GridViewAdapter;
+import com.example.lightcontrolapp.tools.SPUtils;
+import com.example.lightcontrolapp.udp.SendUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class SceneFragment extends Fragment {
 
+    private Context context;
     private GridView mGV;
     private GridViewAdapter mGridAdapter;
     private Button btnSave,btnDel,btnCancel;
     private ImageView editImageView;
     private boolean isEditScene = false;
+    private int editSceneNum ;
     private boolean isNullScene = false;
     private AlphaAnimation alphaAnimation1;
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scene,container,false);
+        context = view.getContext(); //getActivity(); //view.getContext();
         //初始化图片
         mGV = view.findViewById(R.id.scene_gv);
         btnSave = view.findViewById(R.id.btn_scene_save);
@@ -41,7 +63,6 @@ public class SceneFragment extends Fragment {
         alphaAnimation1Ini();
         gridViewIni();
         btnIni();
-
         return  view;
     }
 
@@ -49,6 +70,19 @@ public class SceneFragment extends Fragment {
     private void gridViewIni(){
 
         mGV.setAdapter(mGridAdapter);
+        String key ;
+        ImageView imageView = null;
+        for (int i = 0;i<mGV.getChildCount();i++){
+            key = "scene_"+String.valueOf(i);
+            Log.e("恢复数据",key +SPUtils.get(context, key, "").toString());
+            if (SPUtils.contains(context,key)){
+                imageView = mGV.getChildAt(i).findViewById(R.id.scene_markView);
+                imageView.setImageResource(R.drawable.scene_info);
+            }
+
+
+        }
+
 
         //长按事件
         mGV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -59,7 +93,14 @@ public class SceneFragment extends Fragment {
                 }
                 sceneEditorStatus(true);
                 editImageView = view.findViewById(R.id.scene_markView);
-                ControlFragment.isGroud = true;
+                editSceneNum = i;
+                String key = "scene_"+String.valueOf(i);
+                if (SPUtils.contains(context,key)){
+                    ArtNetInfo.isGroud = true;
+                    //推送到分控窗体 更新事件
+                    EventBus.getDefault().post(new EventBusMessage(1, SPUtils.get(context, key, "").toString()){});
+                }
+
                 if (editImageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_null).getConstantState())){
                     isNullScene = true;
                 }else {
@@ -79,13 +120,24 @@ public class SceneFragment extends Fragment {
                 if(isEditScene){
                     return;
                 }
-                AllOffIni();
+
+
+
+                String key = "scene_"+String.valueOf(i);
                 ImageView imageView = view.findViewById(R.id.scene_img);
-                imageView.setImageResource(R.drawable.scene_on);
-
-
+                if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_on).getConstantState())){
+                    AllOffIni();
+                    ArtNetInfo.BODY_PACKET = ArtNetInfo.OFF_PACKET;
+                    imageView.setImageResource(R.drawable.scene_off);
+                }else {
+                    AllOffIni();
+                    ArtNetInfo.BODY_PACKET = SPUtils.get(context, key, "").toString();
+                    imageView.setImageResource(R.drawable.scene_on);
+                }
+                SendUtils.Send(ArtNetInfo.getBodyOrder());
             }
         });
+
     }
 
     //闪烁动画
@@ -104,9 +156,10 @@ public class SceneFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 editImageView.clearAnimation();
-                editImageView.setImageResource(R.drawable.scene_select);
+                editImageView.setImageResource(R.drawable.scene_info);
                 sceneEditorStatus(false);
-
+                Log.e("保存","scene_"+String.valueOf(editSceneNum)+":" + ArtNetInfo.BODY_PACKET);
+                SPUtils.put(context, "scene_"+String.valueOf(editSceneNum), ArtNetInfo.BODY_PACKET);
             }
         });
 
@@ -117,7 +170,8 @@ public class SceneFragment extends Fragment {
                 editImageView.clearAnimation();
                 editImageView.setImageResource(R.drawable.scene_null);
                 sceneEditorStatus(false);
-
+                SPUtils.remove(context,"scene_"+String.valueOf(editSceneNum));
+                Log.e("删除","scene_"+String.valueOf(editSceneNum));
             }
         });
 
@@ -130,7 +184,7 @@ public class SceneFragment extends Fragment {
                 if (isNullScene){
                     editImageView.setImageResource(R.drawable.scene_null);
                 }else {
-                    editImageView.setImageResource(R.drawable.scene_select);
+                    editImageView.setImageResource(R.drawable.scene_info);
                 }
 
 
@@ -139,7 +193,7 @@ public class SceneFragment extends Fragment {
 
     }
 
-    //显示是否处于编辑场景状态
+    //显示是否处于编辑场景状态  显示按钮
     private void sceneEditorStatus(boolean status){
         isEditScene = status;
         //编辑状态
@@ -158,6 +212,7 @@ public class SceneFragment extends Fragment {
         }
 
     }
+
 
 
 }

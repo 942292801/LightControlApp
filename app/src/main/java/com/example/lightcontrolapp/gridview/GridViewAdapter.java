@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lightcontrolapp.R;
+import com.example.lightcontrolapp.tools.SPUtils;
 
 //场景使用的gridview
 public class GridViewAdapter extends BaseAdapter {
@@ -60,9 +61,14 @@ public class GridViewAdapter extends BaseAdapter {
         name_tv = (TextView) convertView.findViewById(R.id.scene_name);
         markImg =(ImageView)  convertView.findViewById(R.id.scene_markView);
 
+        if (SPUtils.contains(parent.getContext(),"scene_"+String.valueOf(position))){
+            markImg.setImageResource(R.drawable.scene_info);
+        }else {
+            markImg.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.scene_null));
+
+        }
         img.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.scene_off));
         name_tv.setText(String.valueOf(position+1));
-        markImg.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.scene_null));
 
         //deleteView.setVisibility(isShowDelete?View.VISIBLE:View.GONE);//设置删除按钮是否显示
         //img.setBackgroundResource(icons[position]);

@@ -10,7 +10,7 @@
         android:id="@+id/iv_grid"
         android:layout_width="@dimen/w_80"
         android:layout_height="@dimen/h_80"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter" />
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="@dimen/w_80"

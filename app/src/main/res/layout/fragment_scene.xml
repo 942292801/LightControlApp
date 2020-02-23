@@ -62,7 +62,7 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/h_80"
         >
@@ -111,7 +111,7 @@
             android:layout_alignParentRight="true"
             android:text="清除"
             />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 
 

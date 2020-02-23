@@ -19,8 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.example.lightcontrolapp.dto.EventBusMessage;
+import com.example.lightcontrolapp.gridview.ControlGV;
 import com.example.lightcontrolapp.tools.SPUtils;
 import com.example.lightcontrolapp.udp.SendUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,16 +39,19 @@ public class MainActivity extends AppCompatActivity {
     //用于标识上一个fragment
     private int lastFragment;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        for(int i =0 ;i<64;i++){
+            ControlGV.lightList.add(0);
+        }
         initFragment();
         iniIPTitle();
-
-
     }
 
     /**

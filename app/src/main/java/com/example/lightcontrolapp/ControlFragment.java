@@ -1,9 +1,12 @@
 package com.example.lightcontrolapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,46 +18,82 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.lightcontrolapp.dto.ArtNetInfo;
+import com.example.lightcontrolapp.dto.EventBusMessage;
 import com.example.lightcontrolapp.gridview.ControlGV;
 import com.example.lightcontrolapp.udp.SendUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class ControlFragment extends Fragment {
 
+    private Context context;
     private GridView mGV;
     private Button btnOn,btnOff,btnSingleCtrl,btnGroudCtrl,btnAllselect,btnClear;
     private TextView tvTotal,tvColor;
     private SeekBar sbTotal,sbColor;
 
-
-    public static Boolean isGroud = false;
     //总亮度
     private double totalLight = 0;
     //色温
     private double colorLight = 0;
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_control,container,false);
+        context = view.getContext();
         tvTotal = view.findViewById(R.id.tv_total);
         tvColor = view.findViewById(R.id.tv_color);
         sbTotal = view.findViewById(R.id.sb_total);
         sbColor = view.findViewById(R.id.sb_color);
+
+        btnOn  = view.findViewById(R.id.btn_on);
+        btnOff = view.findViewById(R.id.off);
+        btnSingleCtrl = view.findViewById(R.id.btn_singelctrl);
+        btnGroudCtrl = view.findViewById(R.id.btn_groudctrl);
+        btnAllselect = view.findViewById(R.id.btn_allselect);
+        btnClear = view.findViewById(R.id.btn_clear);
+
         //初始化图片
         mGV = view.findViewById(R.id.gv_control);
+
+        gvIni();
+        //滑动条初始化
+        seebarIni();
+        //按钮初始化
+        btnIni();
+
+        EventBus.getDefault().register(this);
+
+        return  view;
+    }
+
+    private void gvIni(){
+
         //适配器
-        mGV.setAdapter(new ControlGV(view.getContext()));
+        mGV.setAdapter(new ControlGV(context));
 
         //20盏灯点击事件
         mGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                 ImageView imageView = view.findViewById(R.id.iv_grid);
-
-                if (!isGroud){
+                TextView textView =  view.findViewById(R.id.tv_title);
+                if (!ArtNetInfo.isGroud){
                     AllOffIni();
                     sbTotal.setOnSeekBarChangeListener(null);
                     sbColor.setOnSeekBarChangeListener(null);
@@ -64,32 +103,23 @@ public class ControlFragment extends Fragment {
                     tvColor.setText("色温:"+sbColor.getProgress() + "k");
                     seebarIni();
                 }
-                if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.on).getConstantState())){
-                    imageView.setImageResource(R.drawable.off);
-
-                }else {
+                int flag = Integer.valueOf(textView.getText().toString()) -1;
+                if (ControlGV.lightList.get(flag)==0){
                     imageView.setImageResource(R.drawable.on);
-
+                    ControlGV.lightList.set(flag,1);
+                }else {
+                    imageView.setImageResource(R.drawable.off);
+                    ControlGV.lightList.set(flag,0);
                 }
             }
         });
-        //滑动条初始化
-        seebarIni();
-        //按钮初始化
-        btnIni(view);
-        return  view;
     }
 
-    private void btnIni(View view){
-        btnOn  = view.findViewById(R.id.btn_on);
-        btnOff = view.findViewById(R.id.off);
-        btnSingleCtrl = view.findViewById(R.id.btn_singelctrl);
-        btnGroudCtrl = view.findViewById(R.id.btn_groudctrl);
-        btnAllselect = view.findViewById(R.id.btn_allselect);
-        btnClear = view.findViewById(R.id.btn_clear);
+    private void btnIni(){
+
 
         //单控和群控
-        if (isGroud){
+        if (ArtNetInfo.isGroud){
             btnSingleCtrl.setBackgroundResource(R.drawable.btn_gray);
             btnGroudCtrl.setBackgroundResource(R.drawable.btn_yellow);
         }else {
@@ -102,8 +132,8 @@ public class ControlFragment extends Fragment {
         btnSingleCtrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isGroud){
-                    isGroud=false;
+                if (ArtNetInfo.isGroud){
+                    ArtNetInfo.isGroud=false;
                     btnSingleCtrl.setBackgroundResource(R.drawable.btn_yellow);
                     btnGroudCtrl.setBackgroundResource(R.drawable.btn_gray);
                     AllOffIni();
@@ -118,8 +148,8 @@ public class ControlFragment extends Fragment {
         btnGroudCtrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isGroud){
-                    isGroud=true;
+                if (!ArtNetInfo.isGroud){
+                    ArtNetInfo.isGroud=true;
                     btnSingleCtrl.setBackgroundResource(R.drawable.btn_gray);
                     btnGroudCtrl.setBackgroundResource(R.drawable.btn_yellow);
                     AllOffIni();
@@ -134,7 +164,7 @@ public class ControlFragment extends Fragment {
         btnAllselect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isGroud){
+                if (ArtNetInfo.isGroud){
                     AllOnIni();
                     //SendUtils.Send(ArtNetInfo.getBodyOrder());
                 }
@@ -155,15 +185,13 @@ public class ControlFragment extends Fragment {
         btnOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView imageView= null;
                 int tmp = -1;
-                for (int i =0;i<20;i++){
-                    imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.iv_grid);
-                    if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.on).getConstantState())){
+                for (int i =0;i<ControlGV.lightList.size();i++){
+                    if (ControlGV.lightList.get(i)==1){
                         ArtNetInfo.BodyUpdatePipe1(255,i);
                         tmp = i;
                     }else {
-                        if(isGroud){
+                        if(ArtNetInfo.isGroud){
                             ArtNetInfo.BodyUpdatePipe1(0,i);
                         }
                     }
@@ -184,19 +212,16 @@ public class ControlFragment extends Fragment {
         btnOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageView imageView= null;
                 int tmp = -1;
-                for (int i =0;i<20;i++){
-                    imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.iv_grid);
-                    if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.on).getConstantState())){
+                for (int i =0;i<ControlGV.lightList.size();i++){
+                    if (ControlGV.lightList.get(i)==1){
                         ArtNetInfo.BodyUpdatePipe1(0,i);
                         tmp = i;
                     }else {
-                        if (isGroud){
+                        if (ArtNetInfo.isGroud){
                             ArtNetInfo.BodyUpdatePipe1(0,i);
                         }
                     }
-
                 }
                 if (tmp != -1){
                     SendUtils.Send(ArtNetInfo.getBodyOrder());
@@ -208,13 +233,9 @@ public class ControlFragment extends Fragment {
             }
         });
 
-
-
     }
 
     private void seebarIni(){
-
-
         //总亮度条
         sbTotal.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -223,15 +244,13 @@ public class ControlFragment extends Fragment {
                     tvTotal.setText("亮度: "+progress + "%");
                     int pipe1 =0;
                     boolean isSelect = false;
-                    ImageView imageView = null;
                     pipe1 = (int)Math.ceil(totalLight/100*255);
-                    for (int i =0;i<20;i++){
-                        imageView = mGV.getChildAt(i).findViewById(R.id.iv_grid);
-                        if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.on).getConstantState())){
+                    for (int i =0;i<ControlGV.lightList.size();i++){
+                        if (ControlGV.lightList.get(i)==1){
                             isSelect = true;
                             ArtNetInfo.BodyUpdatePipe1(pipe1,i);
                         }else {
-                            if(isGroud){
+                            if(ArtNetInfo.isGroud){
                                 ArtNetInfo.BodyUpdatePipe1(0,i);
                             }
                         }
@@ -241,8 +260,6 @@ public class ControlFragment extends Fragment {
                         SendUtils.Send(ArtNetInfo.getBodyOrder());
 
                     }
-
-
 
             }
 
@@ -264,15 +281,13 @@ public class ControlFragment extends Fragment {
                 tvColor.setText("色温:"+progress + "k");
                 int pipe2 =0;
                 boolean isSelect = false;
-                ImageView imageView = null;
                 pipe2 = (int)Math.ceil((colorLight-3000)/3000*255);
-                for (int i =0;i<20;i++){
-                    imageView = mGV.getChildAt(i).findViewById(R.id.iv_grid);
-                    if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.on).getConstantState())){
+                for (int i =0;i<ControlGV.lightList.size();i++){
+                    if (ControlGV.lightList.get(i)==1){
                         ArtNetInfo.BodyUpdatePipe2(pipe2,i);
                         isSelect = true;
                     }else {
-                        if(isGroud){
+                        if(ArtNetInfo.isGroud){
                             ArtNetInfo.BodyUpdatePipe2(0,i);
                         }
                     }
@@ -300,7 +315,11 @@ public class ControlFragment extends Fragment {
     private void AllOffIni(){
         ImageView imageView = null;
         //所有灯关
-        for (int i = 0;i<mGV.getChildCount();i++){
+        for (int i = 0;i<ControlGV.lightList.size();i++){
+            ControlGV.lightList.set(i,0);
+        }
+        for (int i = 0;i<mGV.getChildCount();i++)
+        {
             imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.iv_grid);
             imageView.setImageResource(R.drawable.off);
         }
@@ -310,12 +329,61 @@ public class ControlFragment extends Fragment {
     //把mgv的灯全部开
     private void AllOnIni(){
         ImageView imageView = null;
-        //所有灯关
-        for (int i = 0;i<mGV.getChildCount();i++){
-            imageView = mGV.getChildAt(i).findViewById(R.id.iv_grid);
+        //所有灯开
+        for (int i = 0;i<ControlGV.lightList.size();i++){
+            ControlGV.lightList.set(i,1);
+
+        }
+        for (int i = 0;i<mGV.getChildCount();i++)
+        {
+            imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.iv_grid);
             imageView.setImageResource(R.drawable.on);
         }
 
+    }
+
+
+
+    //EvenBus 广播事件处理
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg(EventBusMessage message) {
+        if (message.getType()==1){
+            if (TextUtils.isEmpty(message.getMessage())){
+                return;
+            }
+            ArtNetInfo.BODY_PACKET = message.getMessage();
+            Log.e("恢复",message.getMessage());
+            ArtNetInfo.isGroud=true;
+            btnSingleCtrl.setBackgroundResource(R.drawable.btn_gray);
+            btnGroudCtrl.setBackgroundResource(R.drawable.btn_yellow);
+            ImageView imageView= null;
+            TextView textView = null;
+            for (int i = 0;i<ControlGV.lightList.size();i++){
+                if (!ArtNetInfo.getBodyIsNull(i)){
+                    //通话值不为空 切换选中图片
+                    ControlGV.lightList.set(i,1);
+                }
+                else {
+                    ControlGV.lightList.set(i,0);
+
+                }
+            }
+
+            int flag = 0;
+            for (int i =0;i<mGV.getChildCount();i++){
+                imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.iv_grid);
+                textView = mGV.getChildAt(i).findViewById(R.id.tv_title);
+                flag = Integer.valueOf(textView.getText().toString()) -1;
+                if(ControlGV.lightList.get(flag)==1){
+                    imageView.setImageResource(R.drawable.on);
+                }else {
+                    imageView.setImageResource(R.drawable.off);
+                }
+
+
+            }
+
+        }
     }
 
 

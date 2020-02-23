@@ -1,7 +1,6 @@
 package com.example.lightcontrolapp.gridview;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,15 @@ import android.widget.TextView;
 
 import com.example.lightcontrolapp.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControlGV extends BaseAdapter {
 
     private  Context mcontext;
     private LayoutInflater mLayoutInflater;
+    //灯光选中 标记
+    public static List<Integer> lightList = new ArrayList<Integer>();
 
     public ControlGV(Context context){
         this.mcontext = context;
@@ -23,9 +27,11 @@ public class ControlGV extends BaseAdapter {
 
     @Override
     public int getCount() {
+
         //产生多少个item
-        return 20;
+        return 64;
     }
+
 
     @Override
     public Object getItem(int i) {
@@ -56,7 +62,13 @@ public class ControlGV extends BaseAdapter {
         }
 
         holder.textView.setText(String.valueOf(i+1));
-        holder.imageView.setImageDrawable(ContextCompat.getDrawable(mcontext,R.drawable.off));
+        if (lightList.get(i) == 0){
+            holder.imageView.setImageResource(R.drawable.off);
+
+        }else {
+            holder.imageView.setImageResource(R.drawable.on);
+
+        }
         return view;
     }
 }
