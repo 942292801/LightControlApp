@@ -8,6 +8,6 @@
         android:width="15dp"
         android:height="15dp"
         />
-    <solid android:color="@color/colorBalck" />
+    <solid android:color="@color/Balck" />
 
 </shape>

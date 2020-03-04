@@ -10,8 +10,8 @@
         android:title="@string/scene" />
     <item
         android:id="@+id/navigation_wiring"
-        android:icon="@drawable/wiringa"
-        android:title="@string/wiring" />
+        android:icon="@drawable/effecta"
+        android:title="@string/effect" />
     <item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/settinga"

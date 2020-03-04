@@ -19,12 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.lightcontrolapp.dto.EventBusMessage;
 import com.example.lightcontrolapp.gridview.ControlGV;
 import com.example.lightcontrolapp.tools.SPUtils;
 import com.example.lightcontrolapp.udp.SendUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -174,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         //将三个fragment先放在数组里
         controlFragment = new ControlFragment();
         sceneFragment = new SceneFragment();
-        wiringFragment = new WiringFragment();
+        wiringFragment = new EffectFragment();
         settingFragment = new SettingFragment();
         fragmentlist = new Fragment[]{controlFragment,sceneFragment,wiringFragment,settingFragment};
         //此时标识标识首页
@@ -217,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         switchFragment(lastFragment, 2);
                         lastFragment = 2;
                     }
-                    menuItem.setIcon(R.drawable.wiringb);
+                    menuItem.setIcon(R.drawable.effectb);
                     return true;
                 case R.id.navigation_setting:
                     if (lastFragment != 3) {
@@ -257,10 +254,10 @@ public class MainActivity extends AppCompatActivity {
      * 重新配置每个按钮的图标
      */
     private void resetToDefaultIcon() {
-        navigationView.getMenu().findItem(R.id.navigation_control).setIcon(R.drawable.controla2);
-        navigationView.getMenu().findItem(R.id.navigation_scene).setIcon(R.drawable.scenea2);
-        navigationView.getMenu().findItem(R.id.navigation_wiring).setIcon(R.drawable.wiringa2);
-        navigationView.getMenu().findItem(R.id.navigation_setting).setIcon(R.drawable.settinga2);
+        navigationView.getMenu().findItem(R.id.navigation_control).setIcon(R.drawable.controla);
+        navigationView.getMenu().findItem(R.id.navigation_scene).setIcon(R.drawable.scenea);
+        navigationView.getMenu().findItem(R.id.navigation_wiring).setIcon(R.drawable.effecta);
+        navigationView.getMenu().findItem(R.id.navigation_setting).setIcon(R.drawable.settinga);
     }
 
 

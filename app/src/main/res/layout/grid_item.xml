@@ -16,7 +16,7 @@
         android:layout_width="@dimen/w_80"
         android:layout_height="wrap_content"
         android:text="@string/control"
-        android:textColor="@color/colorBalck"
+        android:textColor="@color/Balck"
         android:gravity="center"
         android:layout_marginTop="@dimen/h_10"/>
 

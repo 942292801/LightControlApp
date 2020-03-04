@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/h_10"
+    android:paddingRight="@dimen/h_20"
+    android:paddingLeft="@dimen/h_20"
+    android:paddingBottom="@dimen/h_10"
+    android:id="@+id/effect_layout"
+    >
+
+    <GridView
+        android:id="@+id/effect_gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:horizontalSpacing="@dimen/h_5"
+        android:numColumns="5"
+        android:listSelector="@android:color/transparent"
+        android:verticalSpacing="@dimen/h_10"
+        android:layout_marginTop="@dimen/h_10"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/h_40"
+        android:background="@color/Gray" />
+
+    <TextView
+        android:id="@+id/effect_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h_10"
+        android:textColor="@color/Balck"
+        android:textSize="20sp"
+        android:text=" 当前操作场景号:100 "
+        android:layout_marginBottom="@dimen/h_10"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/Gray" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_60"
+        android:layout_marginTop="@dimen/h_30"
+        >
+
+        <Button
+            android:id="@+id/effect_btn_automatic"
+            android:layout_width="@dimen/w_130"
+            android:layout_height="@dimen/h_50"
+            android:background="@drawable/btn_gray"
+            android:textSize="11sp"
+            android:layout_toLeftOf="@+id/effect_btn_back"
+            android:text="开启"
+            />
+
+        <Button
+            android:id="@+id/effect_btn_back"
+            android:layout_width="@dimen/w_130"
+            android:layout_height="@dimen/h_50"
+            android:background="@drawable/btn_gray"
+            android:textSize="11sp"
+            android:layout_marginHorizontal="@dimen/h_40"
+            android:layout_centerHorizontal="true"
+            android:text="上一步"
+            />
+
+
+        <Button
+            android:id="@+id/effect_btn_next"
+            android:layout_width="@dimen/w_130"
+            android:layout_height="@dimen/h_50"
+            android:background="@drawable/btn_gray"
+            android:textSize="11sp"
+            android:layout_toRightOf="@id/effect_btn_back"
+            android:text="下一步"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_80"
+        android:layout_marginTop="@dimen/h_20"
+        >
+
+        <TextView
+        android:id="@+id/effect_tv_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/h_20"
+        android:textColor="@color/Balck"
+        android:layout_marginLeft="@dimen/w_40"
+        android:text="正常"
+        android:layout_marginBottom="@dimen/h_10"/>
+
+        <TextView
+            android:id="@+id/effect_tv_quick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h_20"
+            android:textColor="@color/Balck"
+            android:layout_marginRight="@dimen/w_40"
+            android:layout_alignParentRight="true"
+            android:text="快"
+            android:layout_marginBottom="@dimen/h_10"/>
+
+    </RelativeLayout>
+
+
+    <SeekBar
+        android:id="@+id/sb_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:splitTrack="false"
+        android:min="0"
+        android:progressDrawable="@drawable/seebar_len"
+        />
+
+
+</LinearLayout >

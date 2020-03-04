@@ -3,7 +3,7 @@
     <!-- 连框颜色值 -->
     <item>
         <shape>
-            <solid android:color="@color/colorBalck" />
+            <solid android:color="@color/Balck" />
         </shape>
     </item>
     <!-- 主体背景颜色值 -->
@@ -11,7 +11,7 @@
         android:bottom="1px">
 <!--        android:right="1px">&lt;!&ndash;设置只有底部和右边有边框&ndash;&gt;-->
         <shape>
-            <solid android:color="@color/colorWhite" />
+            <solid android:color="@color/White" />
         </shape>
     </item>
 </layer-list>

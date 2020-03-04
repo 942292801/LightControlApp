@@ -54,10 +54,11 @@ public class SceneFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scene,container,false);
         context = view.getContext(); //getActivity(); //view.getContext();
         //初始化图片
-        mGV = view.findViewById(R.id.scene_gv);
         btnSave = view.findViewById(R.id.btn_scene_save);
         btnDel = view.findViewById(R.id.btn_scene_del);
         btnCancel = view.findViewById(R.id.btn_scene_cancel);
+        mGV = view.findViewById(R.id.scene_gv);
+
         //适配器
         mGridAdapter = new GridViewAdapter(view.getContext());
         alphaAnimation1Ini();
@@ -120,8 +121,6 @@ public class SceneFragment extends Fragment {
                 if(isEditScene){
                     return;
                 }
-
-
 
                 String key = "scene_"+String.valueOf(i);
                 ImageView imageView = view.findViewById(R.id.scene_img);

@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/h_10"
-        android:textColor="@color/colorBalck"
+        android:textColor="@color/Balck"
         android:text="亮度:100%"
         android:layout_marginBottom="@dimen/h_10"/>
 
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/h_20"
-        android:textColor="@color/colorBalck"
+        android:textColor="@color/Balck"
         android:text="色温: 0K"
         android:layout_marginBottom="@dimen/h_10"/>
 
