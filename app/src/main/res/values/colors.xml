@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="Transparent">#00000000</color>
     <color name="Gray">#C4C4C4</color>
     <color name="Accent">#D81B60</color>
     <color name="DeepGray">#242424</color>
@@ -13,4 +14,9 @@
     <color name="YellowStart">#FFDDAA</color>
     <color name="Yellow">#FFFF44</color>
     <color name="Red">#FF0000</color>
+    <color name="white">#ffffff</color>
+    <color name="divide">#e6ebf0</color>
+    <color name="main_bg">#F3F3F3</color>
+    <color name="mc_txt_gray_bg">#a6a6a6</color>
+    <color name="ripple_color">#19333333</color>
 </resources>

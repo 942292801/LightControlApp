@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lightcontrolapp.R;
+import com.example.lightcontrolapp.tools.SPUtils;
 
 public class EffectGV extends BaseAdapter {
     private Context mContext;
@@ -51,12 +52,18 @@ public class EffectGV extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(
-                R.layout.fragmet_grid_item, null);
+                R.layout.griditem_scene, null);
         img = (ImageView) convertView.findViewById(R.id.scene_img);
         name_tv = (TextView) convertView.findViewById(R.id.scene_name);
         markImg =(ImageView)  convertView.findViewById(R.id.scene_markView);
         markImg.setVisibility(View.VISIBLE);
+        String tmp = SPUtils.get(parent.getContext(),"effect_"+String.valueOf(position),"").toString();
+        if ( tmp.length()>5){
+            markImg.setImageResource(R.drawable.img_scene_mark_true);
+        }else {
+            markImg.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.img_scene_mark_false));
 
+        }
         img.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.effect_off));
         name_tv.setText(String.valueOf(position+1));
 

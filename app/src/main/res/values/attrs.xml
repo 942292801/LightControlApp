@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MenuItemLayout">
+        <attr name="title_text" format="string" />
+        <attr name="hint_text" format="string" />
+        <attr name="icon_reference" format="reference" />
+        <attr name="icon_uri" format="string" />
+        <attr name="jump_url" format="string" />
+        <attr name="divide_line_style" format="integer" />
+    </declare-styleable>
+</resources>

@@ -2,7 +2,11 @@ package com.example.lightcontrolapp.dto;
 
 public class EventBusMessage {
 
-    //tyoe = 1 为场景长按改变分控的界面  2：为初始场景数据浮标为绿色
+    /*//tyoe =
+        1：为场景长按改变分控的界面
+        2：效果长按编辑完成，更新效果右上角标识
+        3: 设置亮度和色温更新 设置界面说明文字
+     */
     private int type ;
     private String message;
 

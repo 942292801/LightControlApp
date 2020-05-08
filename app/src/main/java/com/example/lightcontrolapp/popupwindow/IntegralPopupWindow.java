@@ -73,7 +73,8 @@ public class IntegralPopupWindow extends PopupWindow {
 
     }
 
-
+    //使用方法
+    //IntegralPopupWindow integralPopupWindow = new IntegralPopupWindow(getActivity());
 
 
 

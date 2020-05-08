@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/root"
+
+    >
+    <TextView
+        android:id="@+id/zh_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textSize="@dimen/w_40"
+        android:text="敬请期待"/>
+
+    <Button
+        android:id="@+id/zh_btn_back"
+        android:layout_width="@dimen/w_130"
+        android:layout_height="@dimen/h_50"
+        android:layout_marginTop="@dimen/h_20"
+        android:layout_marginBottom="@dimen/h_10"
+        android:layout_marginLeft="@dimen/h_10"
+        android:background="@drawable/btn_gray"
+        android:layout_below="@+id/zh_txt"
+        android:layout_centerHorizontal="true"
+        android:textSize="11sp"
+        android:text="返回"
+
+        />
+
+</RelativeLayout>

@@ -20,11 +20,9 @@ import com.example.lightcontrolapp.dto.ArtNetInfo;
 import com.example.lightcontrolapp.dto.EventBusMessage;
 import com.example.lightcontrolapp.gridview.GridViewAdapter;
 import com.example.lightcontrolapp.tools.SPUtils;
-import com.example.lightcontrolapp.udp.SendUtils;
+import com.example.lightcontrolapp.udp.UDPUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 
 public class SceneFragment extends Fragment {
@@ -59,8 +57,7 @@ public class SceneFragment extends Fragment {
         btnCancel = view.findViewById(R.id.btn_scene_cancel);
         mGV = view.findViewById(R.id.scene_gv);
 
-        //适配器
-        mGridAdapter = new GridViewAdapter(view.getContext());
+
         alphaAnimation1Ini();
         gridViewIni();
         btnIni();
@@ -69,21 +66,9 @@ public class SceneFragment extends Fragment {
 
 
     private void gridViewIni(){
-
+        //适配器
+        mGridAdapter = new GridViewAdapter(context);
         mGV.setAdapter(mGridAdapter);
-        String key ;
-        ImageView imageView = null;
-        for (int i = 0;i<mGV.getChildCount();i++){
-            key = "scene_"+String.valueOf(i);
-            Log.e("恢复数据",key +SPUtils.get(context, key, "").toString());
-            if (SPUtils.contains(context,key)){
-                imageView = mGV.getChildAt(i).findViewById(R.id.scene_markView);
-                imageView.setImageResource(R.drawable.scene_info);
-            }
-
-
-        }
-
 
         //长按事件
         mGV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -97,17 +82,16 @@ public class SceneFragment extends Fragment {
                 editSceneNum = i;
                 String key = "scene_"+String.valueOf(i);
                 if (SPUtils.contains(context,key)){
-                    ArtNetInfo.isGroud = true;
                     //推送到分控窗体 更新事件
                     EventBus.getDefault().post(new EventBusMessage(1, SPUtils.get(context, key, "").toString()){});
                 }
 
-                if (editImageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_null).getConstantState())){
+                if (editImageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.img_scene_mark_false).getConstantState())){
                     isNullScene = true;
                 }else {
                     isNullScene = false;
                 }
-                editImageView.setImageResource(R.drawable.scene_on);
+                editImageView.setImageResource(R.drawable.img_scene_on);
                 editImageView.setAnimation(alphaAnimation1);
                 alphaAnimation1.start();
 
@@ -118,22 +102,22 @@ public class SceneFragment extends Fragment {
         mGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-                if(isEditScene){
+                /*if(isEditScene){
                     return;
                 }
 
                 String key = "scene_"+String.valueOf(i);
                 ImageView imageView = view.findViewById(R.id.scene_img);
-                if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.scene_on).getConstantState())){
+                if (imageView.getDrawable().getCurrent().getConstantState().equals(getResources().getDrawable(R.drawable.img_scene_on).getConstantState())){
                     AllOffIni();
                     ArtNetInfo.BODY_PACKET = ArtNetInfo.OFF_PACKET;
-                    imageView.setImageResource(R.drawable.scene_off);
+                    imageView.setImageResource(R.drawable.img_scene_off);
                 }else {
                     AllOffIni();
                     ArtNetInfo.BODY_PACKET = SPUtils.get(context, key, "").toString();
-                    imageView.setImageResource(R.drawable.scene_on);
+                    imageView.setImageResource(R.drawable.img_scene_on);
                 }
-                SendUtils.Send(ArtNetInfo.getBodyOrder());
+                UDPUtils.Send(ArtNetInfo.getBodyOrder());*/
             }
         });
 
@@ -154,11 +138,11 @@ public class SceneFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editImageView.clearAnimation();
-                editImageView.setImageResource(R.drawable.scene_info);
+                /*editImageView.clearAnimation();
+                editImageView.setImageResource(R.drawable.img_scene_mark_true);
                 sceneEditorStatus(false);
                 Log.e("保存","scene_"+String.valueOf(editSceneNum)+":" + ArtNetInfo.BODY_PACKET);
-                SPUtils.put(context, "scene_"+String.valueOf(editSceneNum), ArtNetInfo.BODY_PACKET);
+                SPUtils.put(context, "scene_"+String.valueOf(editSceneNum), ArtNetInfo.BODY_PACKET);*/
             }
         });
 
@@ -167,7 +151,7 @@ public class SceneFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 editImageView.clearAnimation();
-                editImageView.setImageResource(R.drawable.scene_null);
+                editImageView.setImageResource(R.drawable.img_scene_mark_false);
                 sceneEditorStatus(false);
                 SPUtils.remove(context,"scene_"+String.valueOf(editSceneNum));
                 Log.e("删除","scene_"+String.valueOf(editSceneNum));
@@ -181,9 +165,9 @@ public class SceneFragment extends Fragment {
                 sceneEditorStatus(false);
                 editImageView.clearAnimation();
                 if (isNullScene){
-                    editImageView.setImageResource(R.drawable.scene_null);
+                    editImageView.setImageResource(R.drawable.img_scene_mark_false);
                 }else {
-                    editImageView.setImageResource(R.drawable.scene_info);
+                    editImageView.setImageResource(R.drawable.img_scene_mark_true);
                 }
 
 
@@ -207,7 +191,7 @@ public class SceneFragment extends Fragment {
         //所有灯关
         for (int i = 0;i<mGV.getChildCount();i++){
             imageView = (ImageView) mGV.getChildAt(i).findViewById(R.id.scene_img);
-            imageView.setImageResource(R.drawable.scene_off);
+            imageView.setImageResource(R.drawable.img_scene_off);
         }
 
     }

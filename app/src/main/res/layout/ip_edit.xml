@@ -15,6 +15,7 @@
         <EditText android:id="@+id/input_IP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/w_34"
             android:textSize="12sp"/>
     </android.support.design.widget.TextInputLayout>
 

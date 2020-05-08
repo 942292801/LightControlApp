@@ -39,6 +39,8 @@ dependencies {
     implementation 'com.yanzhenjie:recyclerview-swipe:1.1.4'
     implementation 'com.contrarywind:Android-PickerView:3.2.5'
     implementation 'com.alibaba:fastjson:1.2.62'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
 
 }

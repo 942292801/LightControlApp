@@ -8,29 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.lightcontrolapp.R;
 
-import java.util.List;
 
-public class RecycleDemoAdapter extends RecyclerView.Adapter<RecycleDemoAdapter.MyHolder> {
+public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyHolder> {
 
     private Context context;   // 方便视图的操作
-    private List<String> list;
-    public  RecycleDemoAdapter(Context context,List<String> list)
+
+    public RecycleAdapter(Context context)//, List<SceneTimeInfo> list)
     {
         this.context = context;
-        this.list = list;
+
     }
 
-    //
-//    public void update(List<String> list)
-//    {
-//        this.list = list;
-//        notifyDataSetChanged();
-//    }
+
     // 获取 item 的布局
     @NonNull
     @Override
@@ -41,28 +34,35 @@ public class RecycleDemoAdapter extends RecyclerView.Adapter<RecycleDemoAdapter.
     }
     @Override
     public int getItemCount() {
-        return list.size();
+        return 2;
     }
 
     // 绑定类
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        TextView recycler_content,recycler_time;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.recycler_content);
+            recycler_content = itemView.findViewById(R.id.recycler_content);
+            recycler_time = itemView.findViewById(R.id.recycler_time);
         }
     }
     //   实际绑定 item 操作
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, final int position) {
-        String s = list.get(position);
-        myHolder.textView.setText(s);
-        myHolder.textView.setOnClickListener(new View.OnClickListener() {
+        /*if (position<list.size()){
+            SceneTimeInfo sceneTimeInfo = list.get(position);
+            myHolder.recycler_content.setText("场景："+ CommonTools.regGetNum(sceneTimeInfo.getScenenum()));
+            myHolder.recycler_time.setText(String.format("%02d:%02d",sceneTimeInfo.getMinute(),sceneTimeInfo.getSecond()) );
+
+        }*/
+
+
+        /*myHolder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "点击了:"+list.get(position), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
 }

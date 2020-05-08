@@ -15,7 +15,6 @@ import com.example.lightcontrolapp.tools.SPUtils;
 //场景使用的gridview
 public class GridViewAdapter extends BaseAdapter {
     private String names[];
-
     private int icons[];
     private Context mContext;
     private TextView name_tv;
@@ -56,18 +55,18 @@ public class GridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(
-                R.layout.fragmet_grid_item, null);
+                R.layout.griditem_scene, null);
         img = (ImageView) convertView.findViewById(R.id.scene_img);
         name_tv = (TextView) convertView.findViewById(R.id.scene_name);
         markImg =(ImageView)  convertView.findViewById(R.id.scene_markView);
 
         if (SPUtils.contains(parent.getContext(),"scene_"+String.valueOf(position))){
-            markImg.setImageResource(R.drawable.scene_info);
+            markImg.setImageResource(R.drawable.img_scene_mark_true);
         }else {
-            markImg.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.scene_null));
+            markImg.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.img_scene_mark_false));
 
         }
-        img.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.scene_off));
+        img.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.img_scene_off));
         name_tv.setText(String.valueOf(position+1));
 
         //deleteView.setVisibility(isShowDelete?View.VISIBLE:View.GONE);//设置删除按钮是否显示

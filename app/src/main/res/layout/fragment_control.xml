@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="@dimen/h_10"
-    android:paddingRight="@dimen/h_20"
-    android:paddingLeft="@dimen/h_20"
+    android:paddingRight="@dimen/h_10"
+    android:paddingLeft="@dimen/h_10"
     android:paddingBottom="@dimen/h_10">
 
 
@@ -15,26 +14,63 @@
     <GridView
         android:id="@+id/gv_control"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/h_560"
-        android:horizontalSpacing="@dimen/h_5"
+        android:layout_height="@dimen/h_600"
+        android:horizontalSpacing="@dimen/h_3"
         android:numColumns="5"
         android:listSelector="@android:color/transparent"
-        android:verticalSpacing="@dimen/h_10"
-        android:layout_marginTop="@dimen/h_10"/>
+        android:verticalSpacing="@dimen/h_5"
+        android:layout_marginTop="@dimen/h_5"/>
 
-    <TextView
-        android:id="@+id/tv_total"
-        android:layout_width="wrap_content"
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/h_10"
-        android:textColor="@color/Balck"
-        android:text="亮度:100%"
-        android:layout_marginBottom="@dimen/h_10"/>
+        android:layout_marginTop="@dimen/h_40"
+        >
+
+        <TextView
+            android:id="@+id/control_light_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h_20"
+            android:textColor="@color/Balck"
+            android:textSize="10sp"
+            android:layout_marginLeft="10dip"
+            android:text="0%"
+            />
+
+        <TextView
+            android:id="@+id/control_light_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h_10"
+            android:textColor="@color/Balck"
+            android:textSize="14sp"
+            android:text="亮度: 100%"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/control_light_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/h_20"
+            android:layout_marginRight="10dip"
+            android:textColor="@color/Balck"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            android:text="100%"
+            />
+
+    </RelativeLayout>
+
 
 
     <SeekBar
-        android:id="@+id/sb_total"
+        android:id="@+id/control_light_sb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="100"
@@ -43,108 +79,114 @@
         android:progressDrawable="@drawable/seebar_nuan"
         />
 
-    <TextView
-        android:id="@+id/tv_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/h_20"
-        android:textColor="@color/Balck"
-        android:text="色温: 0K"
-        android:layout_marginBottom="@dimen/h_10"/>
 
 
-    <SeekBar
-        android:id="@+id/sb_color"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:max="3000"
+        android:layout_marginTop="@dimen/h_40"
+        >
+
+        <TextView
+            android:id="@+id/control_sewen_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/h_20"
+            android:layout_marginLeft="10dip"
+            android:textColor="@color/Balck"
+            android:textSize="10sp"
+            android:text="3000K"
+           />
+
+        <TextView
+            android:id="@+id/control_sewen_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/h_10"
+            android:textColor="@color/Balck"
+            android:textSize="14sp"
+            android:text="色温: 0K"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/control_sewen_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/h_20"
+            android:layout_marginRight="10dip"
+            android:textColor="@color/Balck"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            android:text="6000K"
+            />
+
+    </RelativeLayout>
+    <SeekBar
+        android:id="@+id/control_sewen_sb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="6000"
         android:splitTrack="false"
-        android:min="0"
+        android:min="3000"
         android:progressDrawable="@drawable/seebar_len"
         />
 
- <RelativeLayout
+ <LinearLayout
      android:layout_width="match_parent"
-     android:layout_height="@dimen/h_80"
+     android:layout_height="match_parent"
      android:layout_marginTop="@dimen/h_20"
      >
 
      <Button
-         android:id="@+id/btn_on"
+         android:id="@+id/control_btn_on"
          android:layout_width="@dimen/w_130"
          android:layout_height="@dimen/h_50"
          android:background="@drawable/btn_gray"
          android:textSize="11sp"
-         android:layout_marginLeft="@dimen/h_150"
+         android:layout_weight="1"
          android:text="开"
+         android:layout_marginLeft="10dip"
          />
-
-
 
      <Button
-         android:id="@+id/off"
+         android:id="@+id/control_btn_off"
          android:layout_width="@dimen/w_130"
          android:layout_height="@dimen/h_50"
          android:background="@drawable/btn_gray"
          android:textSize="11sp"
-         android:layout_alignParentRight="true"
-         android:layout_marginRight="@dimen/h_150"
+         android:layout_weight="1"
          android:text="关"
+         android:layout_marginLeft="20dip"
          />
 
- </RelativeLayout>
+     <Button
+         android:id="@+id/control_btn_allselect"
+         android:layout_width="@dimen/w_130"
+         android:layout_height="@dimen/h_50"
+         android:background="@drawable/btn_gray"
+         android:textSize="11sp"
+         android:layout_weight="1"
+         android:text="全选"
+         android:layout_marginLeft="20dip"
+         />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/h_80"
-        >
+     <Button
+         android:id="@+id/control_btn_clear"
+         android:layout_width="@dimen/w_130"
+         android:layout_height="@dimen/h_50"
+         android:background="@drawable/btn_gray"
+         android:textSize="11sp"
+         android:layout_weight="1"
+         android:text="清除"
+         android:layout_marginLeft="20dip"
+         android:layout_marginRight="10dip"
+         />
 
-        <Button
-            android:id="@+id/btn_singelctrl"
-            android:layout_width="@dimen/w_130"
-            android:layout_height="@dimen/h_50"
-            android:background="@drawable/btn_gray"
-            android:textSize="11sp"
-            android:layout_alignParentLeft="true"
-            android:text="单控"
+ </LinearLayout>
 
 
-            />
-
-        <Button
-            android:id="@+id/btn_groudctrl"
-            android:layout_width="@dimen/w_130"
-            android:layout_height="@dimen/h_50"
-            android:background="@drawable/btn_gray"
-            android:textSize="11sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/w_20"
-            android:layout_toRightOf="@+id/btn_singelctrl"
-            android:text="群控"
-            />
-
-        <Button
-            android:id="@+id/btn_allselect"
-            android:layout_width="@dimen/w_130"
-            android:layout_height="@dimen/h_50"
-            android:background="@drawable/btn_gray"
-            android:textSize="11sp"
-            android:layout_marginRight="@dimen/w_20"
-            android:layout_toLeftOf="@+id/btn_clear"
-            android:text="全选"
-            />
-
-        <Button
-            android:id="@+id/btn_clear"
-            android:layout_width="@dimen/w_130"
-            android:layout_height="@dimen/h_50"
-            android:background="@drawable/btn_gray"
-            android:textSize="11sp"
-            android:layout_alignParentRight="true"
-            android:text="清除"
-        />
-    </RelativeLayout>
 
 
 

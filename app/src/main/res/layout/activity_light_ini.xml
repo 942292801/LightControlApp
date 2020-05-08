@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:background="@color/SmokeWhite"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/lighttitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/h_90"
+        tools:ignore="MissingConstraints"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/spinner_sp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/h_50"
+            android:layout_centerInParent="true"
+            android:textColor="@color/Balck"
+            android:textSize="16sp"
+            android:text="亮度初始设置"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_light_min"
+        android:layout_width="@dimen/w_500"
+        android:layout_height="@dimen/h_90"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lighttitle"
+        android:layout_marginTop="@dimen/h_150"
+        android:background="@drawable/shape_wihte_frame" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:lines="1"
+            android:padding="1dp"
+            android:text="最小值"
+            android:textSize="11sp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_toRightOf="@+id/textView1"
+            android:background="#EEEFFF" />
+
+        <EditText
+            android:id="@+id/val_light_min"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/view1"
+            android:background="@color/Transparent"
+            android:ems="19"
+            android:hint="输入最小亮度值"
+            android:inputType="number"
+            android:padding="1dp"
+            android:textSize="12sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/del_light_min"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/img_setting__del"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_light_max"
+        android:layout_width="@dimen/w_500"
+        android:layout_height="@dimen/h_90"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_light_min"
+        android:layout_marginTop="@dimen/h_50"
+        android:background="@drawable/shape_wihte_frame" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:lines="1"
+            android:padding="1dp"
+            android:text="最大值"
+            android:textSize="11sp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="1dip"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_toRightOf="@+id/textView2"
+            android:background="#EEEFFF" />
+
+        <EditText
+            android:id="@+id/val_light_max"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/view2"
+            android:background="@color/Transparent"
+            android:ems="19"
+            android:hint="输入最大亮度值"
+            android:inputType="number"
+            android:padding="1dp"
+            android:textSize="12sp" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/del_light_max"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:src="@drawable/img_setting__del"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/light_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/h_50"
+        android:layout_below="@+id/rl_light_max"
+        android:layout_marginTop="@dimen/h_50"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_gray"
+        android:textSize="17sp"
+        android:text="返回"
+        />
+
+
+</RelativeLayout>

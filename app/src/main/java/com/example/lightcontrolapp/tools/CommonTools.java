@@ -11,6 +11,8 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommonTools {
 
@@ -102,4 +104,13 @@ public class CommonTools {
             e.printStackTrace();
         }
     }
+
+    //正则表达 返回数字
+    public static String regGetNum(String str){
+        String regEx="[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return  m.replaceAll("");
+    }
+
 }

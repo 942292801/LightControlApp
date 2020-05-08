@@ -1,10 +1,12 @@
 package com.example.lightcontrolapp.tools;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +29,11 @@ public class FastJsonUtils {
             return "";
         }
         try {
-            return JSON.toJSONString(object);
-        } catch (JSONException e) {
+            return JSON.toJSONString(object, SerializerFeature.WriteMapNullValue);
+
+
         } catch (Exception e) {
+            Log.e("error",e.getMessage());
         }
         return "";
     }

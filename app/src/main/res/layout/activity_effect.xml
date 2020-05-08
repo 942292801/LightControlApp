@@ -40,7 +40,7 @@
             android:layout_centerInParent="true"
             android:textColor="@color/Balck"
             android:textSize="16sp"
-            android:text="编辑效果"
+            android:text="效果设置"
             />
 
         <Button
@@ -70,7 +70,8 @@
         android:id="@+id/pop_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/pop_title">
+        android:layout_below="@id/pop_title"
+        >
     </com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView>
 
 

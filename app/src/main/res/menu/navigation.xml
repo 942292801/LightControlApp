@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_control"
-        android:icon="@drawable/controla"
+        android:icon="@drawable/img_fg_controla"
         android:title="@string/control" />
     <item
         android:id="@+id/navigation_scene"
-        android:icon="@drawable/scenea"
+        android:icon="@drawable/img_fg_scenea"
         android:title="@string/scene" />
     <item
         android:id="@+id/navigation_wiring"
-        android:icon="@drawable/effecta"
+        android:icon="@drawable/img_fg_effecta"
         android:title="@string/effect" />
     <item
         android:id="@+id/navigation_setting"
-        android:icon="@drawable/settinga"
+        android:icon="@drawable/img_fg_settinga"
         android:title="@string/setting" />
 
 
